@@ -3,13 +3,26 @@ package il.ac.hit.quizzy;
 public class QuizQuestion implements IQuizQuestion {
 
 
-    public interface IQuizQuestionBuilder {
-        public IQuizQuestionBuilder setTitle(String text);
+    public static class Builder implements IQuizQuestionBuilder {
 
-        public IQuizQuestionBuilder setQuestion(String text);
+        @Override
+        public IQuizQuestionBuilder setTitle(String text) {
+            return null;
+        }
 
-        public IQuizQuestionBuilder addAnswer(String text, boolean correct);
+        @Override
+        public IQuizQuestionBuilder setQuestion(String text) {
+            return null;
+        }
 
-        public IQuizQuestion create();
+        @Override
+        public IQuizQuestionBuilder addAnswer(String text, boolean correct) {
+            return null;
+        }
+
+        @Override
+        public IQuizQuestion create() {
+            return null;
+        }
     }
 }
