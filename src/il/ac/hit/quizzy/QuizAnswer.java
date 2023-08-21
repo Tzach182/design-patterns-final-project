@@ -4,9 +4,9 @@ public class QuizAnswer {
     private String question;
     private boolean correct;
 
-    public QuizAnswer(String question, boolean isCorrect) {
+    public QuizAnswer(String question, boolean correct) {
         setQuestion(question);
-        setCorrect(isCorrect);
+        setCorrect(correct);
     }
 
     public boolean isCorrect() {
