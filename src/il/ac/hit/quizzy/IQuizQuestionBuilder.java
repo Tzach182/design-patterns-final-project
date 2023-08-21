@@ -5,7 +5,7 @@ public interface IQuizQuestionBuilder {
 
     public IQuizQuestionBuilder setQuestion(String text);
 
-    public IQuizQuestionBuilder addAnswer(String text, boolean correct);
+    public IQuizQuestionBuilder addAnswer(String text, boolean correctAnswer);
 
     public IQuizQuestion create();
 }

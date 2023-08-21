@@ -13,6 +13,6 @@ public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
 
     @Override
     public IQuiz loadQuizFromFile(String fileName) throws QuizException {
-        return null;
+        throw new QuizException();
     }
 }
