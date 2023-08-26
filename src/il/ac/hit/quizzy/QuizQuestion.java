@@ -6,7 +6,7 @@ import java.util.List;
 public class QuizQuestion implements IQuizQuestion {
     private String title;
     private String question;
-    private List<QuizAnswer> answerList = new LinkedList<QuizAnswer>();
+    private List<QuizAnswer> answerList = new LinkedList<>();
 
 
     @Override
@@ -25,12 +25,32 @@ public class QuizQuestion implements IQuizQuestion {
     }
 
     @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String getQuestion() {
+        return question;
+    }
+
+    @Override
+    public String getAnswerText() {
+        return null;
+    }
+
+    @Override
+    public Boolean isAnswerCorrect() {
+        return null;
+    }
+
+    @Override
     public String toString() {
-        String text = title + "\n";
-        text+= question +"\n";
+        String text = title + ", ";
+        text+= question +", ";
         for (QuizAnswer answer : answerList) {
             text += answer.getQuestion() + ", " + answer.isCorrect();
-            text += "\n";
+            text += ", ";
         }
         return text;
     }
@@ -38,8 +58,7 @@ public class QuizQuestion implements IQuizQuestion {
     public static class Builder implements IQuizQuestionBuilder {
         String questionTitle;
         String builderQuestion;
-
-        List<QuizAnswer> answers = new LinkedList<QuizAnswer>();
+        List<QuizAnswer> answers = new LinkedList<>();
 
         @Override
         public IQuizQuestionBuilder setTitle(String text) {

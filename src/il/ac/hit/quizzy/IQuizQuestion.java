@@ -8,4 +8,12 @@ public interface IQuizQuestion {
     public abstract void setQuestion(String text);
 
     public abstract void setAnswerList(List<QuizAnswer> answers);
+
+    String getTitle();
+
+    String getQuestion();
+
+    String getAnswerText();
+
+    Boolean isAnswerCorrect();
 }
