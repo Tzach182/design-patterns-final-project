@@ -5,9 +5,6 @@ import java.util.stream.Stream;
 
 public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
     private static SimpleCSVQuizFilesDAO instance;
-    private FileOutputStream fos;
-    private DataOutputStream dos;
-
     private Scanner scanner;
 
     private SimpleCSVQuizFilesDAO() {    }
@@ -71,31 +68,9 @@ public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
         return quiz;
     }
 
-    public void open(String fileName) throws QuizException {
-
-        try {
-            fos = new FileOutputStream(fileName);
-            dos = new DataOutputStream(fos);
-
-        } catch (IOException e) {
-            throw new QuizException("problem opening stream to the file",e);
-        }
-    }
-    public void close() throws QuizException {
-
-        if(dos==null) {
-            throw new QuizException("open still was not called");
-        }
-
-        try {
-            dos.close();
-        } catch(IOException e) {
-            throw new QuizException("problem closing stream");
-        }
-
-    }
 
     public IQuizQuestion buildQuestionFromRow(String[] question){
+
         IQuizQuestionBuilder questionBuilder = new QuizQuestion.Builder();
         questionBuilder.setTitle(question[0]);
         questionBuilder.setQuestion(question[1]);
