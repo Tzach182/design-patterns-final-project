@@ -8,7 +8,7 @@ public interface IUIMedia {
 
     public void showQuestion(String title, String question, List<String> answers);
 
-    public void showScore(int score);
+    public void showScore(int score, int length);
 
     public int getUserInput();
 

@@ -38,8 +38,8 @@ public class UITerminal implements IUIMedia {
 
 
     @Override
-    public void showScore(int score) {
-        System.out.println("Your score is: " + score);
+    public void showScore(int score, int length) {
+        System.out.println("Your score is: " + score + " out of " + length);
     }
 
     @Override

@@ -35,7 +35,7 @@ public class TerminalQuiz implements IQuiz, Cloneable {
                 score++;
             }
         }
-        startup.showScore(score);
+        startup.showScore(score,questionList.size());
     }
 
     public QuizType getQuizType() {
