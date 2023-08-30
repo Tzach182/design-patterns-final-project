@@ -56,15 +56,10 @@ public class QuizQuestion implements IQuizQuestion {
         IQuizQuestionBuilder cloneBuilder = new QuizQuestion.Builder();
         cloneBuilder.setTitle(this.getTitle());
         cloneBuilder.setQuestion(this.getQuestion());
-        cloneBuilder.addAnswer("Canada starts with the letter ‘A’.",false);
-        cloneBuilder.addAnswer("Canada starts with the letter ‘B’.",false);
-        cloneBuilder.addAnswer("Canada starts with the letter ‘C’.",true);
-        cloneBuilder.addAnswer("Canada starts with the letter ‘D’.",false);
-        cloneBuilder.addAnswer("Canada starts with the letter ‘E’.",false);
 
         for (QuizAnswer answer: answerList) {
             String cloneAnswer = answer.getAnswer();
-            Boolean cloneIsCorrect = isAnswerCorrect();
+            boolean cloneIsCorrect = answer.isCorrect();
             cloneBuilder.addAnswer(cloneAnswer,cloneIsCorrect);
         }
 

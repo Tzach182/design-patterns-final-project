@@ -29,9 +29,12 @@ public class Program {
         builder2.addAnswer("Canada starts with the letter ‘D’.",false);
         builder2.addAnswer("Canada starts with the letter ‘E’.",false);
         IQuizQuestion question2 = builder2.create();
+        IQuizQuestion question3 = (IQuizQuestion) question2.clone();
+
         //adding questions to quiz
         quiz.addQuestion(question1);
         quiz.addQuestion(question2);
+        IQuiz quiz2 = (IQuiz) quiz.clone();
 //        //saving quiz to file and read it back
         IQuizFilesDAO dao = SimpleCSVQuizFilesDAO.getInstance();
         dao.saveQuizToFile(quiz,"quiz1.data");
