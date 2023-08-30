@@ -13,9 +13,9 @@ public interface IQuizQuestion {
 
     String getQuestion();
 
-    String getAnswerText();
+    List<String> getAnswerText();
 
-    Boolean isAnswerCorrect();
+    Boolean isAnswerCorrect(int index);
 
     Object clone();
 }

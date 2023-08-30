@@ -2,7 +2,7 @@ package il.ac.hit.quizzy;
 
 import java.util.*;
 
-public class TerminalQuiz implements IQuiz,Cloneable{
+public class TerminalQuiz implements IQuiz, Cloneable {
     private String name;
     private int score = 0;
     private final QuizType quizType = QuizType.TERMINAL;
@@ -23,7 +23,19 @@ public class TerminalQuiz implements IQuiz,Cloneable{
 
     @Override
     public void start() {
+        IUIMedia startup = new UITerminal();
+        startup.initialize(questionList.size());
+        for (IQuizQuestion currentQuestion : questionList ) {
+            startup.showQuestion(currentQuestion.getTitle(),
+                    currentQuestion.getQuestion(),
+                    currentQuestion.getAnswerText());
 
+            int answerIndex = startup.getUserInput() - 1;
+            if (currentQuestion.isAnswerCorrect(answerIndex)) {
+                score++;
+            }
+        }
+        startup.showScore(score);
     }
 
     public QuizType getQuizType() {
@@ -71,12 +83,15 @@ public class TerminalQuiz implements IQuiz,Cloneable{
     @Override
     public Object clone() {
         LinkedList<IQuizQuestion> cloneQuestionList = new LinkedList<>();
+
         for (IQuizQuestion question : this.questionList ) {
             QuizQuestion questionClone = (QuizQuestion)question.clone();
             cloneQuestionList.add(questionClone);
         }
+
         TerminalQuiz quizClone = new TerminalQuiz(getName());
         quizClone.setQuestionList(cloneQuestionList);
+
         return quizClone;
     }
 }

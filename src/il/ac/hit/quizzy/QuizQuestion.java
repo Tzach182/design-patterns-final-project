@@ -42,13 +42,17 @@ public class QuizQuestion implements IQuizQuestion {
     }
 
     @Override
-    public String getAnswerText() {
-        return null;
+    public List<String> getAnswerText() {
+        List<String> answersStringList = new LinkedList<>();
+        for (QuizAnswer answer : answerList) {
+            answersStringList.add(answer.getAnswer());
+        }
+        return answersStringList;
     }
 
     @Override
-    public Boolean isAnswerCorrect() {
-        return null;
+    public Boolean isAnswerCorrect(int index) {
+        return answerList.get(index).isCorrect();
     }
 
     @Override
