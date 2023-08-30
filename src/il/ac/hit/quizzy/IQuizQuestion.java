@@ -16,4 +16,6 @@ public interface IQuizQuestion {
     String getAnswerText();
 
     Boolean isAnswerCorrect();
+
+    Object clone();
 }

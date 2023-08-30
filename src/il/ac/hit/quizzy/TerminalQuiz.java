@@ -2,14 +2,25 @@ package il.ac.hit.quizzy;
 
 import java.util.*;
 
-public class TerminalQuiz implements IQuiz{
+public class TerminalQuiz implements IQuiz,Cloneable{
     private String name;
-    private int score;
-
-
-
+    private int score = 0;
     private final QuizType quizType = QuizType.TERMINAL;
     private final List<IQuizQuestion> questionList = new LinkedList<>();
+
+    public TerminalQuiz() { }
+    public TerminalQuiz(String name) {
+        setName(name);
+    }
+
+    private void setQuestionList(LinkedList<IQuizQuestion> questionList) {
+        if(!questionList.isEmpty()) {
+            for (IQuizQuestion question : questionList) {
+                addQuestion(question);
+            }
+        }
+    }
+
     @Override
     public void start() {
 
@@ -36,13 +47,13 @@ public class TerminalQuiz implements IQuiz{
 
     @Override
     public String toString() {
-        String text = name + System.lineSeparator();
+        StringBuilder text = new StringBuilder(name + System.lineSeparator());
 
         for (IQuizQuestion question : questionList) {
-            text += question.toString();
-            text += System.lineSeparator();
+            text.append(question.toString());
+            text.append(System.lineSeparator());
         }
-        return text;
+        return text.toString();
     }
 
     public int getScore() {
@@ -55,5 +66,17 @@ public class TerminalQuiz implements IQuiz{
 
     public List<IQuizQuestion> getQuestionList() {
         return questionList;
+    }
+
+    @Override
+    public Object clone() {
+        LinkedList<IQuizQuestion> cloneQuestionList = new LinkedList<>();
+        for (IQuizQuestion question : this.questionList ) {
+            QuizQuestion questionClone = (QuizQuestion)question.clone();
+            cloneQuestionList.add(questionClone);
+        }
+        TerminalQuiz quizClone = new TerminalQuiz(getName());
+        quizClone.setQuestionList(cloneQuestionList);
+        return quizClone;
     }
 }

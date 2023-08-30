@@ -9,4 +9,6 @@ public interface IQuiz {
     public abstract void addQuestion(IQuizQuestion question);
     List<IQuizQuestion> getQuestionList();
     public QuizType getQuizType();
+    Object clone();
+
 }

@@ -33,4 +33,9 @@ public class GUIQuiz implements IQuiz{
     public QuizType getQuizType() {
         return null;
     }
+
+    @Override
+    public Object clone() {
+        return null;
+    }
 }

@@ -1,11 +1,11 @@
 package il.ac.hit.quizzy;
 
 public class QuizAnswer {
-    private String question;
+    private String answer;
     private boolean correct;
 
     public QuizAnswer(String question, boolean correct) {
-        setQuestion(question);
+        setAnswer(question);
         setCorrect(correct);
     }
 
@@ -17,11 +17,11 @@ public class QuizAnswer {
         this.correct = correct;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }

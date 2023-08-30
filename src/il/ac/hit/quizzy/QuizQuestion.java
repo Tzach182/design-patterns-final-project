@@ -8,6 +8,13 @@ public class QuizQuestion implements IQuizQuestion {
     private String question;
     private List<QuizAnswer> answerList = new LinkedList<>();
 
+    public QuizQuestion(String title, String question) {
+        setTitle(title);
+        setQuestion(question);
+    }
+
+    public QuizQuestion() { }
+
 
     @Override
     public void setTitle(String text) {
@@ -45,14 +52,36 @@ public class QuizQuestion implements IQuizQuestion {
     }
 
     @Override
-    public String toString() {
-        String text = title + ", ";
-        text+= question +", ";
-        for (QuizAnswer answer : answerList) {
-            text += answer.getQuestion() + ", " + answer.isCorrect();
-            text += ", ";
+    public Object clone() {
+        IQuizQuestionBuilder cloneBuilder = new QuizQuestion.Builder();
+        cloneBuilder.setTitle(this.getTitle());
+        cloneBuilder.setQuestion(this.getQuestion());
+        cloneBuilder.addAnswer("Canada starts with the letter ‘A’.",false);
+        cloneBuilder.addAnswer("Canada starts with the letter ‘B’.",false);
+        cloneBuilder.addAnswer("Canada starts with the letter ‘C’.",true);
+        cloneBuilder.addAnswer("Canada starts with the letter ‘D’.",false);
+        cloneBuilder.addAnswer("Canada starts with the letter ‘E’.",false);
+
+        for (QuizAnswer answer: answerList) {
+            String cloneAnswer = answer.getAnswer();
+            Boolean cloneIsCorrect = isAnswerCorrect();
+            cloneBuilder.addAnswer(cloneAnswer,cloneIsCorrect);
         }
-        return text;
+
+        return cloneBuilder.create();
+
+
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder(title + ", ");
+        text.append(question).append(", ");
+        for (QuizAnswer answer : answerList) {
+            text.append(answer.getAnswer()).append(", ").append(answer.isCorrect());
+            text.append(", ");
+        }
+        return text.toString();
     }
 
     public static class Builder implements IQuizQuestionBuilder {

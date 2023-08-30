@@ -1,11 +1,9 @@
 package il.ac.hit.quizzy;
 import java.io.*;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
     private static SimpleCSVQuizFilesDAO instance;
-    private Scanner scanner;
 
     private SimpleCSVQuizFilesDAO() {    }
     public static IQuizFilesDAO getInstance() {
@@ -36,9 +34,9 @@ public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
     @Override
     public IQuiz loadQuizFromFile(String fileName) throws QuizException {
         QuizFactory factory = new QuizFactory();
-        IQuiz quiz = null;
+        IQuiz quiz;
         try{
-            scanner = new Scanner(new File(fileName));
+            Scanner scanner = new Scanner(new File(fileName));
             scanner.useDelimiter(System.lineSeparator());
             String quizInfo = scanner.next(); //Handling quiz info
             String[] infoBrokenDown = quizInfo.split(", ");
@@ -51,7 +49,7 @@ public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
 
             quiz.setName(infoBrokenDown[1]);
 
-            while (scanner.hasNext())  //handling each question separatly
+            while (scanner.hasNext())  //handling each question separately
             {
                 String question = scanner.next();
                 String[] questionBrokenDown = question.split(", ");
