@@ -24,7 +24,7 @@ public class TerminalQuiz implements IQuiz, Cloneable {
     @Override
     public void start() {
         IUIMedia startup = new UITerminal();
-        startup.initialize(questionList.size());
+        startup.initialize(questionList.size(),getName());
         for (IQuizQuestion currentQuestion : questionList ) {
             startup.showQuestion(currentQuestion.getTitle(),
                     currentQuestion.getQuestion(),

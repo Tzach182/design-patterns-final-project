@@ -11,9 +11,9 @@ public class UITerminal implements IUIMedia {
     Scanner input = new Scanner(System.in);
 
     @Override
-    public void initialize(int quizLength) {
+    public void initialize(int quizLength,String quizName) {
 
-        System.out.println("Welcome to the quiz");
+        System.out.println(quizName);
         System.out.println("You will be asked " + quizLength + " questions");
           // Create a Scanner object
         System.out.println("Enter any key to continue");
