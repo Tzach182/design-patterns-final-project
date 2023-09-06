@@ -67,17 +67,18 @@ public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
     }
 
 
-    public IQuizQuestion buildQuestionFromRow(String[] question){
+    public IQuizQuestion buildQuestionFromRow(String[] question) throws QuizException {
 
         IQuizQuestionBuilder questionBuilder = new QuizQuestion.Builder();
         questionBuilder.setTitle(question[0]);
         questionBuilder.setQuestion(question[1]);
-        questionBuilder.addAnswer(question[2],Boolean.parseBoolean(question[3]));
-        questionBuilder.addAnswer(question[4],Boolean.parseBoolean(question[5]));
-        questionBuilder.addAnswer(question[6],Boolean.parseBoolean(question[7]));
-        questionBuilder.addAnswer(question[8],Boolean.parseBoolean(question[9]));
-        questionBuilder.addAnswer(question[10],Boolean.parseBoolean(question[11]));
-
+        try {
+            for (int idx = 2; idx < question.length - 1; idx += 2) {
+                questionBuilder.addAnswer(question[idx], Boolean.parseBoolean(question[idx + 1]));
+            }
+        }catch (Exception e) {
+            throw new QuizException("answer not built according to specification");
+        }
         return questionBuilder.create();
     }
 

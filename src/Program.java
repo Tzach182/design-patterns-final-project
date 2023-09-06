@@ -15,7 +15,7 @@ public class Program {
         builder1.addAnswer("Canada starts with the letter ‘B’.",false);
         builder1.addAnswer("Canada starts with the letter ‘C’.",true);
         builder1.addAnswer("Canada starts with the letter ‘D’.",false);
-        builder1.addAnswer("Canada starts with the letter ‘E’.",false);
+        //builder1.addAnswer("Canada starts with the letter ‘E’.",false);
         IQuizQuestion question1 = builder1.create();
 
         System.out.println(question1);

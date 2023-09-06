@@ -69,7 +69,6 @@ public class QuizQuestion implements IQuizQuestion {
 
         return cloneBuilder.create();
 
-
     }
 
     @Override
