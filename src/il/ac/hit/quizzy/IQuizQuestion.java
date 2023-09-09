@@ -18,4 +18,6 @@ public interface IQuizQuestion {
     Boolean isAnswerCorrect(int index);
 
     Object clone();
+
+    int getAnswerCount();
 }

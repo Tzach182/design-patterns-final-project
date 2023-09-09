@@ -82,6 +82,11 @@ public class QuizQuestion implements IQuizQuestion {
         return text.toString();
     }
 
+    @Override
+    public int getAnswerCount() {
+        return answerList.size();
+    }
+
     public static class Builder implements IQuizQuestionBuilder {
         String questionTitle;
         String builderQuestion;

@@ -29,6 +29,19 @@ public class GUIQuiz implements IQuiz{
 
     @Override
     public void start() {
+        int counter = questionList.size();
+        gameScreen = new JFrame(getName());
+        gameScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameScreen.setSize(700,500);
+        gameScreen.setLocationRelativeTo(null);
+        gameScreen.setLayout(new BorderLayout());
+        gameScreen.setVisible(true);
+        showQuestion(0);
+        // display message
+
+
+
+
         //IUIMedia startup = new UIGUI();
         //startup.initialize(questionList.size(),getName());
 //        for (IQuizQuestion currentQuestion : questionList ) {
@@ -60,7 +73,57 @@ public class GUIQuiz implements IQuiz{
 //        gameScreen.setVisible(true);
     }
 
-    private void showQuestion() {
+    private void showQuestion(int counter) {
+
+        // Create and add the question label
+        String questionText = questionList.get(counter).getQuestion();
+        JLabel questionLabel = new JLabel(questionText);
+        questionLabel.setHorizontalAlignment(JLabel.CENTER);
+        gameScreen.add(questionLabel, BorderLayout.NORTH);
+
+        // Create and add radio buttons for answers
+        int answerCount = questionList.get(counter).getAnswerCount();
+        List<String> answersText = questionList.get(counter).getAnswerText();
+        JPanel answerPanel = new JPanel();
+        answerPanel.setLayout(new GridLayout(answerCount, 1)); // Adjust the number of rows based on the number of answers
+
+        JRadioButton[] answerRadioButtons = new JRadioButton[answerCount]; // You can adjust the number of answers as needed
+        ButtonGroup buttonGroup = new ButtonGroup();
+
+        for (int i = 0; i < answerRadioButtons.length; i++) {
+            answerRadioButtons[i] = new JRadioButton();
+            answerRadioButtons[i].setText(answersText.get(i));
+            buttonGroup.add(answerRadioButtons[i]);
+            answerPanel.add(answerRadioButtons[i]);
+        }
+
+        gameScreen.add(answerPanel, BorderLayout.CENTER);
+
+        // Create and add a submit button
+        JButton submitButton = new JButton("Submit");
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i < answerRadioButtons.length; i++) {
+                    if (answerRadioButtons[i].isSelected()) {
+                        if (questionList.get(counter).isAnswerCorrect(i)) {
+                            score++;
+                        }
+                    }
+                }
+
+                gameScreen.remove(questionLabel);
+                gameScreen.remove(answerPanel);
+                gameScreen.remove(submitButton);
+                gameScreen.revalidate();
+                gameScreen.repaint();
+                showQuestion(counter + 1);
+            }
+        });
+
+        submitButton.setHorizontalAlignment(JButton.CENTER);
+        gameScreen.add(submitButton, BorderLayout.SOUTH);
+
 //        gameScreen.removeAll();
 //        gameScreen.revalidate();
 //        gameScreen.repaint();
