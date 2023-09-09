@@ -15,17 +15,6 @@ public class QuizQuestion implements IQuizQuestion {
     private List<QuizAnswer> answerList = new LinkedList<>();
 
     /**
-     * Constructs a `QuizQuestion` object with a title and a question.
-     *
-     * @param title    The title of the question.
-     * @param question The text of the question.
-     */
-    public QuizQuestion(String title, String question) {
-        setTitle(title);
-        setQuestion(question);
-    }
-
-    /**
      * Default constructor for a `QuizQuestion` object.
      */
     public QuizQuestion() { }
@@ -41,6 +30,9 @@ public class QuizQuestion implements IQuizQuestion {
         this.question = text;
     }
 
+    public List<QuizAnswer> getAnswerList() {
+        return answerList;
+    }
     @Override
     public void setAnswerList(List<QuizAnswer> answerList) {
         this.answerList = answerList;
@@ -59,7 +51,7 @@ public class QuizQuestion implements IQuizQuestion {
     @Override
     public List<String> getAnswerText() {
         List<String> answersStringList = new LinkedList<>();
-        for (QuizAnswer answer : answerList) {
+        for (QuizAnswer answer : getAnswerList()) {
             answersStringList.add(answer.getAnswer());
         }
         return answersStringList;
@@ -67,7 +59,7 @@ public class QuizQuestion implements IQuizQuestion {
 
     @Override
     public Boolean isAnswerCorrect(int index) {
-        return answerList.get(index).isCorrect();
+        return getAnswerList().get(index).isCorrect();
     }
 
     @Override
@@ -75,8 +67,8 @@ public class QuizQuestion implements IQuizQuestion {
         IQuizQuestionBuilder cloneBuilder = new QuizQuestion.Builder();
         cloneBuilder.setTitle(this.getTitle());
         cloneBuilder.setQuestion(this.getQuestion());
-
-        for (QuizAnswer answer: answerList) {
+        //create each answer separately
+        for (QuizAnswer answer: getAnswerList()) {
             String cloneAnswer = answer.getAnswer();
             boolean cloneIsCorrect = answer.isCorrect();
             cloneBuilder.addAnswer(cloneAnswer,cloneIsCorrect);
@@ -88,9 +80,9 @@ public class QuizQuestion implements IQuizQuestion {
 
     @Override
     public String toString() {
-        StringBuilder text = new StringBuilder(title + ", ");
-        text.append(question).append(", ");
-        for (QuizAnswer answer : answerList) {
+        StringBuilder text = new StringBuilder(getTitle() + ", ");
+        text.append(getQuestion()).append(", ");
+        for (QuizAnswer answer : getAnswerList()) {
             text.append(answer.getAnswer()).append(", ").append(answer.isCorrect());
             text.append(", ");
         }

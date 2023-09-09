@@ -43,6 +43,7 @@ public class GUIQuiz implements IQuiz, Cloneable{
 
     @Override
     public void start() {
+        //create initial frame for quiz
         gameScreen = new JFrame(getName());
         gameScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameScreen.setSize(700,500);
@@ -54,16 +55,15 @@ public class GUIQuiz implements IQuiz, Cloneable{
     }
 
     private void showQuestion(int counter) {
-        if(counter < questionList.size()) {
+
+        if(counter < getQuestionList().size()) {
             // Create and add the question label
-            String questionText = questionList.get(counter).getQuestion();
+            String questionText = getQuestionList().get(counter).getQuestion();
             JLabel questionLabel = renderLabel(questionText);
             gameScreen.add(questionLabel, BorderLayout.NORTH);
 
-
-            JPanel answerPanel = renderAnswerPanel(questionList.get(counter));
             // Create and add radio buttons for answers
-
+            JPanel answerPanel = renderAnswerPanel(getQuestionList().get(counter));
             gameScreen.add(answerPanel, BorderLayout.CENTER);
             Component[] answerRadioButtons = answerPanel.getComponents();
 
@@ -77,11 +77,12 @@ public class GUIQuiz implements IQuiz, Cloneable{
                         if (answerRadioButtons[idx] instanceof JRadioButton) {
                             JRadioButton radioButton = (JRadioButton) answerRadioButtons[idx];
                             boolean isSelected = radioButton.isSelected();
-                            if(isSelected && questionList.get(counter).isAnswerCorrect(idx)) {
-                                setScore(score + 1);
+                            if(isSelected && getQuestionList().get(counter).isAnswerCorrect(idx)) {
+                                setScore(getScore() + 1);
                             }
                         }
                     }
+                    // remove former questions
                     gameScreen.remove(questionLabel);
                     gameScreen.remove(answerPanel);
                     gameScreen.remove(submitButton);
@@ -94,15 +95,18 @@ public class GUIQuiz implements IQuiz, Cloneable{
 
         }
         else{
+            //show score
             gameScreen.add(renderScore());
             endGame();
         }
+        //refresh window
         gameScreen.revalidate();
         gameScreen.repaint();
 
     }
 
     private void endGame() {
+        //create exit button to close screen
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -115,12 +119,14 @@ public class GUIQuiz implements IQuiz, Cloneable{
     }
 
     private JLabel renderLabel(String question) {
+        //create label for question
         JLabel questionLabel = new JLabel(question);
         questionLabel.setHorizontalAlignment(JLabel.CENTER);
         return questionLabel;
     }
     private JLabel renderScore() {
-        JLabel scoreLabel = new JLabel("Your score is: " + getScore() + "/" + questionList.size());
+        //show final score
+        JLabel scoreLabel = new JLabel("Your score is: " + getScore() + "/" + getQuestionList().size());
         Font font = new Font("Arial", Font.BOLD, 24); // Font name, style, size
         scoreLabel.setFont(font);
         scoreLabel.setPreferredSize(new Dimension(250, 100));
@@ -137,7 +143,7 @@ public class GUIQuiz implements IQuiz, Cloneable{
 
         JRadioButton[] answerRadioButtons = new JRadioButton[answerCount]; // You can adjust the number of answers as needed
         ButtonGroup buttonGroup = new ButtonGroup();
-
+        //create each radio button
         for (int i = 0; i < answerRadioButtons.length; i++) {
             answerRadioButtons[i] = new JRadioButton();
             answerRadioButtons[i].setText(answersText.get(i));
@@ -175,9 +181,9 @@ public class GUIQuiz implements IQuiz, Cloneable{
 
     @Override
     public String toString() {
-        StringBuilder text = new StringBuilder(name + System.lineSeparator());
+        StringBuilder text = new StringBuilder(getName() + System.lineSeparator());
 
-        for (IQuizQuestion question : questionList) {
+        for (IQuizQuestion question : getQuestionList()) {
             text.append(question.toString());
             text.append(System.lineSeparator());
         }
@@ -215,8 +221,8 @@ public class GUIQuiz implements IQuiz, Cloneable{
     @Override
     public Object clone() {
         LinkedList<IQuizQuestion> cloneQuestionList = new LinkedList<>();
-
-        for (IQuizQuestion question : this.questionList ) {
+        //clone each question separately
+        for (IQuizQuestion question : getQuestionList() ) {
             QuizQuestion questionClone = (QuizQuestion)question.clone();
             cloneQuestionList.add(questionClone);
         }

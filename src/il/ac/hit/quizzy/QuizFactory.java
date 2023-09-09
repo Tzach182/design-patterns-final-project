@@ -6,6 +6,9 @@ package il.ac.hit.quizzy;
  *
  */
 public class QuizFactory   {
+
+    public QuizFactory() {}
+
     /**
      * Creates a quiz based on the specified quiz type.
      *
