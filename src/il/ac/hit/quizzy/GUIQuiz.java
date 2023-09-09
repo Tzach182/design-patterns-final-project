@@ -29,7 +29,6 @@ public class GUIQuiz implements IQuiz{
 
     @Override
     public void start() {
-        int counter = questionList.size();
         gameScreen = new JFrame(getName());
         gameScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameScreen.setSize(700,500);
@@ -37,53 +36,88 @@ public class GUIQuiz implements IQuiz{
         gameScreen.setLayout(new BorderLayout());
         gameScreen.setVisible(true);
         showQuestion(0);
-        // display message
 
-
-
-
-        //IUIMedia startup = new UIGUI();
-        //startup.initialize(questionList.size(),getName());
-//        for (IQuizQuestion currentQuestion : questionList ) {
-//            startup.showQuestion(currentQuestion.getTitle(),
-//                    currentQuestion.getQuestion(),
-//                    currentQuestion.getAnswerText());
-//
-//            int answerIndex = startup.getUserInput() - 1;
-//            if (currentQuestion.isAnswerCorrect(answerIndex)) {
-//                setScore(getScore()+1);
-//            }
-//        }
-//        startup.showScore(getScore(),questionList.size());
-//        gameScreen = new JFrame(quizName);
-//        gameScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        gameScreen.setSize(400,200);
-//        gameScreen.setLocationRelativeTo(null);
-//        gameScreen.setLayout(new BorderLayout());
-//        JLabel startingInfo = new JLabel("You will be asked " + quizLength + " questions");
-//        gameScreen.add(startingInfo);
-//        JButton startButton = new JButton("Press here to start");
-//        startButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                showQuestion();
-//            }
-//        });
-//        gameScreen.add(startButton);
-//        gameScreen.setVisible(true);
     }
 
     private void showQuestion(int counter) {
+        if(counter < questionList.size()) {
+            // Create and add the question label
+            String questionText = questionList.get(counter).getQuestion();
+            JLabel questionLabel = renderLabel(questionText);
+            gameScreen.add(questionLabel, BorderLayout.NORTH);
 
-        // Create and add the question label
-        String questionText = questionList.get(counter).getQuestion();
-        JLabel questionLabel = new JLabel(questionText);
+
+            JPanel answerPanel = renderAnswerPanel(questionList.get(counter));
+            // Create and add radio buttons for answers
+
+            gameScreen.add(answerPanel, BorderLayout.CENTER);
+            Component[] answerRadioButtons = answerPanel.getComponents();
+
+            // Create and add a submit button
+            JButton submitButton = new JButton("Submit Answer");
+            submitButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    for (int idx = 0; idx < answerRadioButtons.length; idx ++ ) {
+
+                        if (answerRadioButtons[idx] instanceof JRadioButton) {
+                            JRadioButton radioButton = (JRadioButton) answerRadioButtons[idx];
+                            boolean isSelected = radioButton.isSelected();
+                            if(isSelected && questionList.get(counter).isAnswerCorrect(idx)) {
+                                setScore(score + 1);
+                            }
+                        }
+                    }
+                    gameScreen.remove(questionLabel);
+                    gameScreen.remove(answerPanel);
+                    gameScreen.remove(submitButton);
+                    showQuestion(counter + 1);
+                }
+            });
+
+            submitButton.setHorizontalAlignment(JButton.CENTER);
+            gameScreen.add(submitButton, BorderLayout.SOUTH);
+
+        }
+        else{
+            gameScreen.add(renderScore());
+            endGame();
+        }
+        gameScreen.revalidate();
+        gameScreen.repaint();
+
+    }
+
+    private void endGame() {
+        JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameScreen.dispose();
+            }
+        });
+        exitButton.setHorizontalAlignment(JButton.CENTER);
+        gameScreen.add(exitButton, BorderLayout.SOUTH);
+    }
+
+    private JLabel renderLabel(String question) {
+        JLabel questionLabel = new JLabel(question);
         questionLabel.setHorizontalAlignment(JLabel.CENTER);
-        gameScreen.add(questionLabel, BorderLayout.NORTH);
+        return questionLabel;
+    }
+    private JLabel renderScore() {
+        JLabel scoreLabel = new JLabel("Your score is: " + getScore() + "/" + questionList.size());
+        Font font = new Font("Arial", Font.BOLD, 24); // Font name, style, size
+        scoreLabel.setFont(font);
+        scoreLabel.setPreferredSize(new Dimension(250, 100));
+        scoreLabel.setHorizontalAlignment(JLabel.CENTER);
+        return scoreLabel;
+    }
 
-        // Create and add radio buttons for answers
-        int answerCount = questionList.get(counter).getAnswerCount();
-        List<String> answersText = questionList.get(counter).getAnswerText();
+    private JPanel renderAnswerPanel(IQuizQuestion currentQuestion) {
+        List<String> answersText = currentQuestion.getAnswerText();
+        int answerCount = answersText.size();
+
         JPanel answerPanel = new JPanel();
         answerPanel.setLayout(new GridLayout(answerCount, 1)); // Adjust the number of rows based on the number of answers
 
@@ -96,58 +130,9 @@ public class GUIQuiz implements IQuiz{
             buttonGroup.add(answerRadioButtons[i]);
             answerPanel.add(answerRadioButtons[i]);
         }
-
         gameScreen.add(answerPanel, BorderLayout.CENTER);
 
-        // Create and add a submit button
-        JButton submitButton = new JButton("Submit");
-        submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < answerRadioButtons.length; i++) {
-                    if (answerRadioButtons[i].isSelected()) {
-                        if (questionList.get(counter).isAnswerCorrect(i)) {
-                            score++;
-                        }
-                    }
-                }
-
-                gameScreen.remove(questionLabel);
-                gameScreen.remove(answerPanel);
-                gameScreen.remove(submitButton);
-                gameScreen.revalidate();
-                gameScreen.repaint();
-                showQuestion(counter + 1);
-            }
-        });
-
-        submitButton.setHorizontalAlignment(JButton.CENTER);
-        gameScreen.add(submitButton, BorderLayout.SOUTH);
-
-//        gameScreen.removeAll();
-//        gameScreen.revalidate();
-//        gameScreen.repaint();
-//        JLabel questionLabel = new JLabel();
-//        questionLabel.setHorizontalAlignment(JLabel.CENTER);
-//        gameScreen.add(questionLabel, BorderLayout.NORTH);
-//
-//        // Create and add radio buttons for answers
-//        JPanel answerPanel = new JPanel();
-//        answerPanel.setLayout(new GridLayout(4, 1)); // Adjust the number of rows based on the number of answers
-//
-//        answerRadioButtons = new JRadioButton[4]; // You can adjust the number of answers as needed
-//        buttonGroup = new ButtonGroup();
-//
-//        for (int i = 0; i < answerRadioButtons.length; i++) {
-//            answerRadioButtons[i] = new JRadioButton();
-//            buttonGroup.add(answerRadioButtons[i]);
-//            answerPanel.add(answerRadioButtons[i]);
-//        }
-//
-//        add(answerPanel, BorderLayout.CENTER);
-//
-//        // Create and add a submit button
-//        submitButton = new JButton("Submit");
+        return  answerPanel;
     }
 
     public QuizType getQuizType() {

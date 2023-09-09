@@ -16,9 +16,6 @@ public class UITerminal implements IUIMedia {
         System.out.println(quizName);
         System.out.println("You will be asked " + quizLength + " questions");
           // Create a Scanner object
-        System.out.println("Enter any key to continue");
-        input.nextLine();  // Read user input
-
         // Output user input
 
     }
