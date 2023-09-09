@@ -24,28 +24,28 @@ public class QuizQuestion implements IQuizQuestion {
     public void setTitle(String text) {
         this.title = text;
     }
-
-    @Override
-    public void setQuestion(String text) {
-        this.question = text;
-    }
-
-    public List<QuizAnswer> getAnswerList() {
-        return answerList;
-    }
-    @Override
-    public void setAnswerList(List<QuizAnswer> answerList) {
-        this.answerList = answerList;
-    }
-
     @Override
     public String getTitle() {
         return title;
     }
 
     @Override
+    public void setQuestion(String text) {
+        this.question = text;
+    }
+
+    @Override
     public String getQuestion() {
         return question;
+    }
+
+    @Override
+    public void setAnswerList(List<QuizAnswer> answerList) {
+        this.answerList = answerList;
+    }
+
+    public List<QuizAnswer> getAnswerList() {
+        return answerList;
     }
 
     @Override
@@ -99,6 +99,8 @@ public class QuizQuestion implements IQuizQuestion {
         String questionTitle;
         String builderQuestion;
         List<QuizAnswer> answers = new LinkedList<>();
+
+        public Builder() { }
 
         @Override
         public IQuizQuestionBuilder setTitle(String text) {
