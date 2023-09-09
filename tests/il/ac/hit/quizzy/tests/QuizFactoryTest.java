@@ -1,9 +1,6 @@
 package il.ac.hit.quizzy.tests;
 
-import il.ac.hit.quizzy.IQuiz;
-import il.ac.hit.quizzy.QuizException;
-import il.ac.hit.quizzy.QuizFactory;
-import il.ac.hit.quizzy.QuizType;
+import il.ac.hit.quizzy.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class QuizFactoryTest {
     QuizFactory testFactory;
+
     @BeforeEach
     void setUp() {
         testFactory = new QuizFactory();
