@@ -22,6 +22,35 @@ public class TerminalQuiz implements IQuiz, Cloneable {
         setName(name);
     }
 
+    @Override
+    public void setName(String text) {
+        name = text;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    @Override
+    public void addQuestion(IQuizQuestion question) {
+        questionList.add(question);
+    }
+    public List<IQuizQuestion> getQuestionList() {
+        return questionList;
+    }
+    public QuizType getQuizType() {
+        return quizType;
+    }
+
     private void setQuestionList(LinkedList<IQuizQuestion> questionList) {
         //set questions in quiz
         if(!getQuestionList().isEmpty()) {
@@ -81,25 +110,6 @@ public class TerminalQuiz implements IQuiz, Cloneable {
         System.out.println("Your score is: " + getScore() + " out of " + getQuestionList().size());
     }
 
-    public QuizType getQuizType() {
-        return quizType;
-    }
-
-    @Override
-    public void setName(String text) {
-        name = text;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void addQuestion(IQuizQuestion question) {
-        questionList.add(question);
-    }
-
     @Override
     public String toString() {
         //change quiz into text
@@ -110,18 +120,6 @@ public class TerminalQuiz implements IQuiz, Cloneable {
             text.append(System.lineSeparator());
         }
         return text.toString();
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public List<IQuizQuestion> getQuestionList() {
-        return questionList;
     }
 
     @Override
