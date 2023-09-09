@@ -7,6 +7,11 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The {@code GUIQuiz} class represents a graphical user interface (GUI) for conducting quizzes.
+ * It implements the {@code IQuiz} interface and provides methods for managing quiz questions,
+ * displaying questions and answer options, scoring, and user interaction through a GUI.
+ */
 public class GUIQuiz implements IQuiz{
     private String name;
     private int score = 0;
@@ -14,7 +19,16 @@ public class GUIQuiz implements IQuiz{
     private final List<IQuizQuestion> questionList = new LinkedList<>();
     private JFrame gameScreen;
 
+    /**
+     * Constructs a new {@code GUIQuiz} instance with default values.
+     */
     public GUIQuiz() { }
+
+    /**
+     * Constructs a new {@code GUIQuiz} instance with the specified name.
+     *
+     * @param name The name of the quiz.
+     */
     public GUIQuiz(String name) {
         setName(name);
     }
@@ -135,6 +149,11 @@ public class GUIQuiz implements IQuiz{
         return  answerPanel;
     }
 
+    /**
+     * Gets the type of the quiz (GUI).
+     *
+     * @return The {@link QuizType} representing the type of the quiz.
+     */
     public QuizType getQuizType() {
         return quizType;
     }
@@ -164,14 +183,30 @@ public class GUIQuiz implements IQuiz{
         }
         return text.toString();
     }
+
+    /**
+     * Gets the current score of the quiz.
+     *
+     * @return The current score of the quiz.
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Sets the score of the quiz.
+     *
+     * @param score The score to set for the quiz.
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * Gets the list of questions in the quiz.
+     *
+     * @return The list of questions in the quiz.
+     */
     public List<IQuizQuestion> getQuestionList() {
         return questionList;
     }
