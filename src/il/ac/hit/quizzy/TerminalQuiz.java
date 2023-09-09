@@ -23,6 +23,7 @@ public class TerminalQuiz implements IQuiz, Cloneable {
     }
 
     private void setQuestionList(LinkedList<IQuizQuestion> questionList) {
+        //set questions in quiz
         if(!questionList.isEmpty()) {
             for (IQuizQuestion question : questionList) {
                 addQuestion(question);
@@ -45,13 +46,14 @@ public class TerminalQuiz implements IQuiz, Cloneable {
     }
 
     public void initialize() {
-
+        //show disclaimer
         System.out.println(getName());
         System.out.println("You will be asked " + questionList.size() + " questions");
 
     }
 
     public void showQuestion(IQuizQuestion currentQuestion) {
+        //print message into terminal
         System.out.println(currentQuestion.getTitle());
         System.out.println(currentQuestion.getQuestion());
         List<String> answers = currentQuestion.getAnswerText();
@@ -63,6 +65,7 @@ public class TerminalQuiz implements IQuiz, Cloneable {
     }
 
     public int getUserInput() {
+        //get user input
         int answer = 0;
         while(!input.hasNextInt()) {
             System.out.println("please enter an integer");
@@ -99,6 +102,7 @@ public class TerminalQuiz implements IQuiz, Cloneable {
 
     @Override
     public String toString() {
+        //change quiz into text
         StringBuilder text = new StringBuilder(name + System.lineSeparator());
 
         for (IQuizQuestion question : questionList) {
@@ -122,6 +126,7 @@ public class TerminalQuiz implements IQuiz, Cloneable {
 
     @Override
     public Object clone() {
+        //clone quiz
         LinkedList<IQuizQuestion> cloneQuestionList = new LinkedList<>();
 
         for (IQuizQuestion question : this.questionList ) {
