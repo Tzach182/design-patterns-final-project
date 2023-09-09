@@ -2,6 +2,14 @@ package il.ac.hit.quizzy;
 
 import java.util.*;
 
+/**
+ * The `TerminalQuiz` class represents a terminal-based quiz game.
+ * It implements the `IQuiz` interface and provides methods to start the quiz,
+ * display questions, and manage the user's score.
+ * This class allows users to answer multiple-choice questions in a terminal.
+ *
+ */
+
 public class TerminalQuiz implements IQuiz, Cloneable {
     private String name;
     private int score = 0;

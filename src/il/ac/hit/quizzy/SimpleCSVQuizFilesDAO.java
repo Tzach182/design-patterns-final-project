@@ -2,10 +2,27 @@ package il.ac.hit.quizzy;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * The `SimpleCSVQuizFilesDAO` class implements the `IQuizFilesDAO` interface and provides methods
+ * for saving and loading quizzes to/from CSV files. It is responsible for converting quiz objects
+ * into CSV format and vice versa.
+ *
+ * This class uses the Singleton pattern to ensure there is only one instance of the DAO.
+ *
+ */
 public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
     private static SimpleCSVQuizFilesDAO instance;
 
+    /**
+     * Private constructor to enforce the Singleton pattern.
+     */
     private SimpleCSVQuizFilesDAO() {    }
+
+    /**
+     * Gets the singleton instance of the `SimpleCSVQuizFilesDAO`.
+     *
+     * @return The singleton instance of the DAO.
+     */
     public static IQuizFilesDAO getInstance() {
         if (instance == null) {
             instance = new SimpleCSVQuizFilesDAO();
@@ -13,6 +30,13 @@ public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
         return instance;
     }
 
+    /**
+     * Saves a quiz to a CSV file.
+     *
+     * @param quiz     The quiz to be saved.
+     * @param fileName The name of the CSV file to which the quiz will be saved.
+     * @throws QuizException If an error occurs while saving the quiz to the file.
+     */
     @Override
     public void saveQuizToFile(IQuiz quiz, String fileName) throws QuizException {
         try (FileWriter fileWriter = new FileWriter(fileName)) {
@@ -31,6 +55,13 @@ public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
         }
     }
 
+    /**
+     * Loads a quiz from a CSV file.
+     *
+     * @param fileName The name of the CSV file from which the quiz will be loaded.
+     * @return The loaded quiz.
+     * @throws QuizException If an error occurs while loading the quiz from the file.
+     */
     @Override
     public IQuiz loadQuizFromFile(String fileName) throws QuizException {
         QuizFactory factory = new QuizFactory();
@@ -66,7 +97,13 @@ public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
         return quiz;
     }
 
-
+    /**
+     * Builds a quiz question from a row of CSV data.
+     *
+     * @param question The CSV data representing a quiz question.
+     * @return The constructed quiz question.
+     * @throws QuizException If an error occurs while constructing the quiz question.
+     */
     public IQuizQuestion buildQuestionFromRow(String[] question) throws QuizException {
 
         IQuizQuestionBuilder questionBuilder = new QuizQuestion.Builder();

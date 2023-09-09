@@ -3,16 +3,31 @@ package il.ac.hit.quizzy;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The `QuizQuestion` class represents a quiz question with a title, question text,
+ * and a list of possible answers. It implements the `IQuizQuestion` interface and
+ * provides methods to set and retrieve the question's properties.
+ *
+ */
 public class QuizQuestion implements IQuizQuestion {
     private String title;
     private String question;
     private List<QuizAnswer> answerList = new LinkedList<>();
 
+    /**
+     * Constructs a `QuizQuestion` object with a title and a question.
+     *
+     * @param title    The title of the question.
+     * @param question The text of the question.
+     */
     public QuizQuestion(String title, String question) {
         setTitle(title);
         setQuestion(question);
     }
 
+    /**
+     * Default constructor for a `QuizQuestion` object.
+     */
     public QuizQuestion() { }
 
 
@@ -87,6 +102,11 @@ public class QuizQuestion implements IQuizQuestion {
         return answerList.size();
     }
 
+    /**
+     * The `Builder` class provides a convenient way to construct `QuizQuestion` objects.
+     * It implements the `IQuizQuestionBuilder` interface and allows you to set the
+     * title, question text, and answers for a quiz question.
+     */
     public static class Builder implements IQuizQuestionBuilder {
         String questionTitle;
         String builderQuestion;
