@@ -12,7 +12,7 @@ import java.util.List;
  * It implements the {@code IQuiz} interface and provides methods for managing quiz questions,
  * displaying questions and answer options, scoring, and user interaction through a GUI.
  */
-public class GUIQuiz implements IQuiz{
+public class GUIQuiz implements IQuiz, Cloneable{
     private String name;
     private int score = 0;
     private final QuizType quizType = QuizType.GUI;

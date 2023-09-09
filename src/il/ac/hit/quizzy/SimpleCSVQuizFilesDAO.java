@@ -97,14 +97,8 @@ public class SimpleCSVQuizFilesDAO implements IQuizFilesDAO{
         return quiz;
     }
 
-    /**
-     * Builds a quiz question from a row of CSV data.
-     *
-     * @param question The CSV data representing a quiz question.
-     * @return The constructed quiz question.
-     * @throws QuizException If an error occurs while constructing the quiz question.
-     */
-    public IQuizQuestion buildQuestionFromRow(String[] question) throws QuizException {
+
+    private IQuizQuestion buildQuestionFromRow(String[] question) throws QuizException {
 
         IQuizQuestionBuilder questionBuilder = new QuizQuestion.Builder();
         questionBuilder.setTitle(question[0]);

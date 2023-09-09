@@ -97,10 +97,6 @@ public class QuizQuestion implements IQuizQuestion {
         return text.toString();
     }
 
-    @Override
-    public int getAnswerCount() {
-        return answerList.size();
-    }
 
     /**
      * The `Builder` class provides a convenient way to construct `QuizQuestion` objects.
