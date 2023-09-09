@@ -24,8 +24,8 @@ public class TerminalQuiz implements IQuiz, Cloneable {
 
     private void setQuestionList(LinkedList<IQuizQuestion> questionList) {
         //set questions in quiz
-        if(!questionList.isEmpty()) {
-            for (IQuizQuestion question : questionList) {
+        if(!getQuestionList().isEmpty()) {
+            for (IQuizQuestion question : getQuestionList()) {
                 addQuestion(question);
             }
         }
@@ -34,7 +34,7 @@ public class TerminalQuiz implements IQuiz, Cloneable {
     @Override
     public void start() {
         initialize();
-        for (IQuizQuestion currentQuestion : questionList ) {
+        for (IQuizQuestion currentQuestion : getQuestionList() ) {
             showQuestion(currentQuestion);
 
             int answerIndex = getUserInput() - 1;
@@ -48,7 +48,7 @@ public class TerminalQuiz implements IQuiz, Cloneable {
     public void initialize() {
         //show disclaimer
         System.out.println(getName());
-        System.out.println("You will be asked " + questionList.size() + " questions");
+        System.out.println("You will be asked " + getQuestionList().size() + " questions");
 
     }
 
@@ -78,7 +78,7 @@ public class TerminalQuiz implements IQuiz, Cloneable {
     }
 
     public void showScore() {
-        System.out.println("Your score is: " + getScore() + " out of " + questionList.size());
+        System.out.println("Your score is: " + getScore() + " out of " + getQuestionList().size());
     }
 
     public QuizType getQuizType() {
@@ -103,9 +103,9 @@ public class TerminalQuiz implements IQuiz, Cloneable {
     @Override
     public String toString() {
         //change quiz into text
-        StringBuilder text = new StringBuilder(name + System.lineSeparator());
+        StringBuilder text = new StringBuilder(getName() + System.lineSeparator());
 
-        for (IQuizQuestion question : questionList) {
+        for (IQuizQuestion question : getQuestionList()) {
             text.append(question.toString());
             text.append(System.lineSeparator());
         }
@@ -129,7 +129,7 @@ public class TerminalQuiz implements IQuiz, Cloneable {
         //clone quiz
         LinkedList<IQuizQuestion> cloneQuestionList = new LinkedList<>();
 
-        for (IQuizQuestion question : this.questionList ) {
+        for (IQuizQuestion question : getQuestionList() ) {
             QuizQuestion questionClone = (QuizQuestion)question.clone();
             cloneQuestionList.add(questionClone);
         }
