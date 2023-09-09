@@ -33,12 +33,58 @@ public class GUIQuiz implements IQuiz, Cloneable{
         setName(name);
     }
 
+    /**
+     * Gets the type of the quiz (GUI).
+     *
+     * @return The {@link QuizType} representing the type of the quiz.
+     */
+    public QuizType getQuizType() {
+        return quizType;
+    }
+
+    @Override
+    public void setName(String text) {
+        name = text;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
     private void setQuestionList(LinkedList<IQuizQuestion> questionList) {
         if(!questionList.isEmpty()) {
             for (IQuizQuestion question : questionList) {
                 addQuestion(question);
             }
         }
+    }
+
+    /**
+     * Gets the list of questions in the quiz.
+     *
+     * @return The list of questions in the quiz.
+     */
+    public List<IQuizQuestion> getQuestionList() {
+        return questionList;
+    }
+
+    /**
+     * Gets the current score of the quiz.
+     *
+     * @return The current score of the quiz.
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * Sets the score of the quiz.
+     *
+     * @param score The score to set for the quiz.
+     */
+    public void setScore(int score) {
+        this.score = score;
     }
 
     @Override
@@ -155,24 +201,6 @@ public class GUIQuiz implements IQuiz, Cloneable{
         return  answerPanel;
     }
 
-    /**
-     * Gets the type of the quiz (GUI).
-     *
-     * @return The {@link QuizType} representing the type of the quiz.
-     */
-    public QuizType getQuizType() {
-        return quizType;
-    }
-
-    @Override
-    public void setName(String text) {
-        name = text;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
 
     @Override
     public void addQuestion(IQuizQuestion question) {
@@ -190,34 +218,6 @@ public class GUIQuiz implements IQuiz, Cloneable{
         return text.toString();
     }
 
-    /**
-     * Gets the current score of the quiz.
-     *
-     * @return The current score of the quiz.
-     */
-    public int getScore() {
-        return score;
-    }
-
-    /**
-     * Sets the score of the quiz.
-     *
-     * @param score The score to set for the quiz.
-     */
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    /**
-     * Gets the list of questions in the quiz.
-     *
-     * @return The list of questions in the quiz.
-     */
-    public List<IQuizQuestion> getQuestionList() {
-        return questionList;
-    }
-
-
     @Override
     public Object clone() {
         LinkedList<IQuizQuestion> cloneQuestionList = new LinkedList<>();
@@ -232,8 +232,5 @@ public class GUIQuiz implements IQuiz, Cloneable{
 
         return quizClone;
     }
-
-
-
 
 }
