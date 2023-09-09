@@ -7,6 +7,7 @@ public class TerminalQuiz implements IQuiz, Cloneable {
     private int score = 0;
     private final QuizType quizType = QuizType.TERMINAL;
     private final List<IQuizQuestion> questionList = new LinkedList<>();
+    Scanner input = new Scanner(System.in);
 
     public TerminalQuiz() { }
     public TerminalQuiz(String name) {
@@ -23,19 +24,50 @@ public class TerminalQuiz implements IQuiz, Cloneable {
 
     @Override
     public void start() {
-        IUIMedia startup = new UITerminal();
-        startup.initialize(questionList.size(),getName());
+        initialize();
         for (IQuizQuestion currentQuestion : questionList ) {
-            startup.showQuestion(currentQuestion.getTitle(),
-                    currentQuestion.getQuestion(),
-                    currentQuestion.getAnswerText());
+            showQuestion(currentQuestion);
 
-            int answerIndex = startup.getUserInput() - 1;
+            int answerIndex = getUserInput() - 1;
             if (currentQuestion.isAnswerCorrect(answerIndex)) {
-                score++;
+                setScore(getScore() + 1);
             }
         }
-        startup.showScore(score,questionList.size());
+        showScore();
+    }
+
+    public void initialize() {
+
+        System.out.println(getName());
+        System.out.println("You will be asked " + questionList.size() + " questions");
+
+    }
+
+    public void showQuestion(IQuizQuestion currentQuestion) {
+        System.out.println(currentQuestion.getTitle());
+        System.out.println(currentQuestion.getQuestion());
+        List<String> answers = currentQuestion.getAnswerText();
+        for (int index = 0; index < answers.size(); index++) {
+            System.out.println((index + 1) + ". "+ answers.get(index));
+        }
+        System.out.println(System.lineSeparator() + "Enter the number of correct answer: ");
+
+    }
+
+    public int getUserInput() {
+        int answer = 0;
+        while(!input.hasNextInt()) {
+            System.out.println("please enter an integer");
+            input.next();
+        }
+        answer = input.nextInt();
+
+
+        return answer;
+    }
+
+    public void showScore() {
+        System.out.println("Your score is: " + getScore() + " out of " + questionList.size());
     }
 
     public QuizType getQuizType() {

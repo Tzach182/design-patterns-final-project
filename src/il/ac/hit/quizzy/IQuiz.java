@@ -2,6 +2,8 @@ package il.ac.hit.quizzy;
 
 import java.util.List;
 
+
+
 public interface IQuiz {
     public abstract void start();
     public abstract void setName(String text);
